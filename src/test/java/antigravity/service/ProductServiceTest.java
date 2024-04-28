@@ -10,6 +10,7 @@ import antigravity.repository.product.ProductRepository;
 import antigravity.repository.promotion.PromotionRepository;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ class ProductServiceTest {
         // given
         ProductPrice productPrice = new ProductPrice(30000L);
         when(productRepository.findById(any())).thenReturn(Optional.of(Product.builder().id(1L).name("test").productPrice(productPrice).build()));
-        when(promotionRepository.findAllById(any())).thenReturn(List.of());
+        when(promotionRepository.findAllAvailablePromotions(any(), any())).thenReturn(List.of());
 
         // when
         ProductAmountResponse productAmount = productService.getProductAmount(request);
@@ -47,9 +48,9 @@ class ProductServiceTest {
         // given
         ProductPrice productPrice = new ProductPrice(215000L);
         when(productRepository.findById(any())).thenReturn(Optional.of(Product.builder().id(1L).name("test").productPrice(productPrice).build()));
-        when(promotionRepository.findAllById(any())).thenReturn(
-                List.of(Promotion.builder().promotionType(PromotionType.CODE).discountValue(15L).build(),
-                        Promotion.builder().promotionType(PromotionType.COUPON).discountValue(30000L).build()
+        when(promotionRepository.findAllAvailablePromotions(any(), any())).thenReturn(
+                List.of(Promotion.builder().promotionType(PromotionType.CODE).discountValue(15L).useStartedAt(ZonedDateTime.now().minusDays(1L)).useEndedAt(ZonedDateTime.now().plusDays(1L)).build(),
+                        Promotion.builder().promotionType(PromotionType.COUPON).discountValue(30000L).useStartedAt(ZonedDateTime.now().minusDays(1L)).useEndedAt(ZonedDateTime.now().plusDays(1L)).build()
                 ));
         // when
         ProductAmountResponse productAmount = productService.getProductAmount(request);
