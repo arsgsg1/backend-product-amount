@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 public class ProductPrice {
     private Long price;
     @Transient
-    public static final Long MIN_PRICE = 10000L;
+    public static final Long MIN_PRICE = 0L;
 
     public ProductPrice(Long price) {
         this.price = price;
