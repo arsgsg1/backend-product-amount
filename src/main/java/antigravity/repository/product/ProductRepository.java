@@ -1,4 +1,4 @@
-package antigravity.repository;
+package antigravity.repository.product;
 
 import antigravity.domain.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
