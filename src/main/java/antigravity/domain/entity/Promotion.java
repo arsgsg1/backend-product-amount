@@ -3,6 +3,7 @@ package antigravity.domain.entity;
 import antigravity.domain.enums.DiscountType;
 import antigravity.domain.enums.PromotionType;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -22,6 +23,17 @@ public class Promotion {
     private Long discountValue; // 할인 금액 or 할인 %
     private ZonedDateTime useStartedAt; // 쿠폰 사용가능 시작 기간
     private ZonedDateTime useEndedAt; // 쿠폰 사용가능 종료 기간
+
+    @Builder
+    public Promotion(Long id, PromotionType promotionType, String name, DiscountType discountType, Long discountValue, ZonedDateTime useStartedAt, ZonedDateTime useEndedAt) {
+        this.id = id;
+        this.promotionType = promotionType;
+        this.name = name;
+        this.discountType = discountType;
+        this.discountValue = discountValue;
+        this.useStartedAt = useStartedAt;
+        this.useEndedAt = useEndedAt;
+    }
 
     public Long getDiscountPrice(ProductPrice productPrice) {
         switch (promotionType) {

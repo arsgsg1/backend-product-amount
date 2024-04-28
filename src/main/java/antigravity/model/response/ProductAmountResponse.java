@@ -2,9 +2,11 @@ package antigravity.model.response;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @Builder
+@Getter
 public class ProductAmountResponse {
     private String name; //상품명
 
