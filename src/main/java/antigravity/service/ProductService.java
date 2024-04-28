@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final PromotionRepository promotionRepository;
-    private final ZoneId KST = ZoneId.of("Asia/Seoul");
 
     @Transactional(readOnly = true)
     public ProductAmountResponse getProductAmount(ProductInfoRequest request) {
