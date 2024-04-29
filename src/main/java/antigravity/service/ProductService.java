@@ -34,7 +34,8 @@ public class ProductService {
         );
 
         Long totalDiscount = allAvailablePromotions.stream()
-                .map((promotion -> promotion.getDiscountPrice(productPrice, requestAt)))
+                .filter(promotion -> promotion.isAvailable(requestAt))
+                .map((promotion -> promotion.getDiscountPrice(productPrice)))
                 .reduce(0L, Long::sum);
 
         Long finalPrice = productPrice.calcPrice(totalDiscount);

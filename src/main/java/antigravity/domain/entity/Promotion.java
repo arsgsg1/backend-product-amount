@@ -35,10 +35,11 @@ public class Promotion {
         this.useEndedAt = useEndedAt;
     }
 
-    public Long getDiscountPrice(ProductPrice productPrice, ZonedDateTime useAt) {
-        if (useAt.isBefore(useStartedAt) || useAt.isAfter(useEndedAt)) {
-            return 0L;
-        }
+    public Boolean isAvailable(ZonedDateTime useAt) {
+        return useAt.isAfter(useStartedAt) && useAt.isBefore(useEndedAt);
+    }
+
+    public Long getDiscountPrice(ProductPrice productPrice) {
         switch (promotionType) {
             case COUPON -> {
                 return productPrice.getDiscountByAmount(discountValue);
